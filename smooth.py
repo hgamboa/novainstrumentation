@@ -1,6 +1,3 @@
-"""@package smooth
-@author: Neuza Nunes"""
-
 import numpy as np
 import doctest
 import numpy
@@ -65,33 +62,3 @@ def smooth(input_signal, window_len = 10, window ='hanning'):
     sig_conv = np.convolve(win/win.sum(), sig, mode='same')
     return sig_conv[window_len-1:-window_len+1]
 
-# Todo compose a demo and test files
-
-if __name__ == '__main__':
-
-    from scipy.signal import lfilter, butter
-    from scipy import sin, arange, pi, randn
-    from filtfilt import filtfilt
-
-    from pylab import plot, legend, show, hold 
-
-    TIME = arange(-1, 1, .01)
-    INPUT_SIGNAL = sin(2*pi*TIME*.5+2)
-    INPUT_SIGNAL_N = INPUT_SIGNAL+randn(len(TIME))*0.05
-
-    [COEFF_B, COEFF_A] = butter(3, 0.05)
-
-    SIGNAL_LOWFILT = lfilter(COEFF_B, COEFF_A, INPUT_SIGNAL_N)
-    SIGNAL_FILT = filtfilt(COEFF_B, COEFF_A, INPUT_SIGNAL_N)
-
-
-    plot(INPUT_SIGNAL,'c')
-    hold(True)
-    plot(INPUT_SIGNAL_N,'k')
-    plot(SIGNAL_LOWFILT,'r')
-    plot(SIGNAL_FILT,'g')
-    legend(('original', 'noisy signal', 
-            'lfilter - butter 3 order', 'filtfilt - butter 3 order'))
-    hold(False)
-    show()
-doctest.testmod()
