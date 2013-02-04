@@ -56,8 +56,8 @@ def filtfilt(b,a,x):
     #in the case of one go we only need one of the extrems 
     # both are needed for filtfilt
 
-    (y,zf)=lfilter(b,a,s,-1,zi*s[0])
+    y,zf = lfilter(b,a,s,-1,zi*s[0])
 
-    (y,zf)=lfilter(b,a,flipud(y),-1,zi*y[-1])
+    y,zf = lfilter(b,a,flipud(y),-1,zi*y[-1])
 
     return flipud(y[edge-1:-edge+1])

@@ -1,5 +1,3 @@
-from pylab import *
-
 
 from numpy import array, abs, arange, dot, int8, int32, floor, fromfunction,\
                   hypot, ones, prod, random, indices, newaxis, poly1d
@@ -63,10 +61,9 @@ class PerlinNoise(object):
         self.idx_ar = indices(2*ones(self.order), dtype=int8).reshape(self.order, -1).T
         self.drop = poly1d((-6, 15, -10, 0, 0, 1.0))
 
-if __name__ == "__main__":
-    # 1D Noise
-    random.seed(seed=0)
-    n = PerlinNoise(size=(1, 128))
-    data = n.getData(32.0)
-    plot(data)
-    show()
+def perlin(n, scale=32.0):
+
+    pn = PerlinNoise(size=(1, n))
+    return pn.getData(scale)
+
+
