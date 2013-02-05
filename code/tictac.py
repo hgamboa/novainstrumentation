@@ -1,9 +1,3 @@
-"""@brief This is a description of the tictac file.
-@package plux.utils.tictac
-@author Hugo Gamboa - PLUX
-@version 1.0
-"""
-
 import time
 
 def tic():
