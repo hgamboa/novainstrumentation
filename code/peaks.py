@@ -1,5 +1,5 @@
-from numpy import diff, sign, array
-from pylab import find
+from numpy import array, clip, argsort, where, sort
+#from pylab import find
 
 
 def peaks(signal, tol = None):
@@ -29,24 +29,25 @@ def peaks(signal, tol = None):
     >>> peaks([1,-4,-3,4,5],0)
     array([], dtype=int32)
     """
+    import peak_finding
     
     if (tol == None):
         tol = min(signal)
-    signal[signal < tol] = 0     
-
-    return find((diff(sign(diff(signal)))) == -2) + 1
+    p = peak_finding.argrelmax( clip(signal, tol, signal.max()))
+    return p[0]
+    
 
 
 def postPeak(V,Vpost):
     """ Detects the next peak """
-    return array([Vpost[find(Vpost>i)][-1] for i in V])
+    return array([Vpost[where(Vpost>i)][-1] for i in V])
 
 
 
 
 def priorPeak(V,Vprior):
     """ Detects the previous peak """
-    return array([Vprior[find(Vprior<i)][-1] for i in V])
+    return array([Vprior[where(Vprior<i)][-1] for i in V])
 
 
 
@@ -84,7 +85,7 @@ def cleanNearPeaks(signal,peaks,min_distance):
         fp+=[pp[-1]]
         pp=pp[abs(pp-pp[-1])>min_distance]
 
-    return array(fp)
+    return sort(array(fp))
 
 def cleanNearEvents(points,min_distance):
     """ Given an array with some specific points of the signal and a distance 
