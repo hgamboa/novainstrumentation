@@ -5,3 +5,4 @@ from tools import plotfft, synthbeats, load_with_cache
 from filter import *
 from smooth import *
 from tictac import tic, tac
+from niplot import niplot
