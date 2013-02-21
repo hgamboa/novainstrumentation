@@ -12,7 +12,7 @@ pythonxy - http://code.google.com/p/pythonxy/
 
 [x] supporting code - download from https://github.com/hgamboa/novainstrumentation
 
-and copy to `python2.7` directory
+and copy to `python2.7` directory and rename to gurantee that the directory is called `novainstrumentation`
 
 check that the following code line works in `ipython`:
 
@@ -21,4 +21,4 @@ check that the following code line works in `ipython`:
 
 ## Code description
 
-## [[Intro Lab]]
+# [[ Intro Lab ]]
