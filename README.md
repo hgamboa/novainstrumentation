@@ -16,9 +16,5 @@ and copy to `python2.7` directory and rename to gurantee that the directory is c
 
 check that the following code line works in `ipython`:
 
-   import novainstrumentation 
+      import novainstrumentation 
 
-
-## Code description
-
-# [[ Intro Lab ]]
