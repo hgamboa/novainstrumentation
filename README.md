@@ -21,3 +21,4 @@ check that the following code line works in `ipython`:
 
 ## Code description
 
+## [[Intro Lab]]
