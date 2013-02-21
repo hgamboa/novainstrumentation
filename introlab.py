@@ -6,26 +6,28 @@ duration = 30 # in seconds
 
 signal, beats = ni.synthbeats(duration, meanhr = 60, stdhr = 3, samplingfreq = 250)
 
+time = np.arange(len(signal))/250.
 
-# TODO INSPECT VECTORS
+# TODO INSPECT VECTORS WITH print
+# TODO ADD NOISE TO SIGNAL HERE WITH pl.randn
 
-
-# TODO ADD NOISE TO SIGNAL HERE
-
-ebeats = np.where( signal == 1.0 )[0]
 
 # TODO IMPROVE BEAT DETECTOR
+ebeats = pl.find( signal == 1.0 )
 
+
+# Plotting part
 pl.subplot(2,1,1)
 pl.title('HR Report')
-pl.plot(np.arange(len(signal))/250.,signal)
+pl.plot(time, signal)
 
 pl.subplot(2,1,2)
 
 pl.bar(ebeats[1:]/250., np.diff(ebeats),.8)
 
-# TODO ADD HISTOGRAM OF HR
-# TOFO GENERATE PDF
+# TODO ADD HISTOGRAM OF HR pl.hist
+
+# TODO GENERATE PDF WITH pl.savefig
 pl.show()
 
 
