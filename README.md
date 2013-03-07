@@ -10,7 +10,7 @@ If you want to replicate in your computer please download and install:
 
 pythonxy - http://code.google.com/p/pythonxy/
 
-[x] supporting code - download from https://github.com/hgamboa/novainstrumentation
+supporting code - download from https://github.com/hgamboa/novainstrumentation
 
 and copy to `python2.7` directory and rename to gurantee that the directory is called `novainstrumentation`
 
