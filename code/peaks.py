@@ -1,5 +1,5 @@
 from numpy import array, clip, argsort, where, sort
-#from pylab import find
+from pylab import find
 
 
 def peaks(signal, tol = None):
@@ -40,14 +40,14 @@ def peaks(signal, tol = None):
 
 def postPeak(V,Vpost):
     """ Detects the next peak """
-    return array([Vpost[where(Vpost>i)][-1] for i in V])
+    return array([Vpost[find(Vpost>i)[0]] for i in V])
 
 
 
 
 def priorPeak(V,Vprior):
     """ Detects the previous peak """
-    return array([Vprior[where(Vprior<i)][-1] for i in V])
+    return array([Vprior[find(Vprior<i)[-1]] for i in V])
 
 
 

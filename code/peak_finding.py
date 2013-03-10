@@ -7,7 +7,7 @@ import numpy as np
 
 #from scipy.lib.six.moves import xrange
 #from scipy.signal.wavelets import cwt, ricker
-from scipy.stats import scoreatpercentile
+#from scipy.stats import scoreatpercentile
 
 
 def _boolrelextrema(data, comparator,
