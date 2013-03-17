@@ -1,5 +1,6 @@
 import novainstrumentation as ni
 import numpy as np
+from numpy import *
 import pylab as pl
 
 from wfdbtools import rdsamp, rdann, plot_data
@@ -38,7 +39,7 @@ print(ann[:4,:])
 #plot_data(data, info, ann)
 
 
-s = data[936:1222,2]
+s = data[936+100:1222+100,2]
 
 duration = 30 # in seconds
 
@@ -46,9 +47,19 @@ signal, beats = ni.synthbeats(duration, meanhr = 60, stdhr = 3, samplingfreq = 5
 
 time = np.arange(len(signal))/250.
 
-ns=np.convolve(signal,s)
+ns=np.convolve(signal,s+0.4)
 
-pl.plot(ns)
 
-pl.show()
+s=ns+pl.randn(len(ns))*0.01
+
+s = s+sin(arange(len(ns))/1000.+pl.randn(len(ns))/5.)*.1
+
+
+
+pl.plot(s)
+
+
+
+pl.draw()
+#pl.show()
 

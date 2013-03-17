@@ -1,7 +1,10 @@
-from numpy import abs, linspace 
+from numpy import abs, linspace, sin, pi
 import matplotlib.pyplot as plt
+import pylab as pl
 import numpy as np
 from os import path 
+from base64 import b64decode
+
 
 def plotfft(s, fmax, doplot = True):
     """ This functions computes the fft of a signal, returning the frequency 
@@ -26,21 +29,23 @@ def plotfft(s, fmax, doplot = True):
     """
     
     
-    fs = abs(np.fft(s))
+    fs = abs(np.fft.fft(s))
     f = linspace(0, fmax/2, len(s)/2)
     if doplot:
         plt.plot(f[1:len(s)/2], fs[1:len(s)/2])
     return (f[1:len(s)/2].copy(), fs[1:len(s)/2].copy())
 
 
-def synthbeats(duration, meanhr= 60, stdhr=1, samplingfreq = 250 ):
+def synthbeats2(duration, meanhr= 60, stdhr=1, samplingfreq = 250 ):
     #Minimaly based on the parameters from:
     #http://physionet.cps.unizar.es/physiotools/ecgsyn/Matlab/ecgsyn.m
     #Inputs: duration in seconds
     #Returns: signal, peaks
     
     ibi = 60/float(meanhr)*samplingfreq
-    sibi= ibi-60/(float(meanhr)-1)*samplingfreq
+
+    
+    sibi= ibi-60/(float(meanhr)-stdhr)*samplingfreq
     
     peaks=np.arange(0,duration*samplingfreq, ibi )
     
@@ -56,8 +61,41 @@ def synthbeats(duration, meanhr= 60, stdhr=1, samplingfreq = 250 ):
     signal[peaks] = 1.0
     
     return signal,peaks
-    
 
+
+def synthbeats(duration, meanhr= 60, stdhr=1, samplingfreq = 250, sinfreq = None ):
+    #Minimaly based on the parameters from:
+    #http://physionet.cps.unizar.es/physiotools/ecgsyn/Matlab/ecgsyn.m
+    #If frequ exist it will be used to generate a sin instead of using rand
+    #Inputs: duration in seconds
+    #Returns: signal, peaks
+
+    t = np.arange(duration*samplingfreq)/float(samplingfreq)
+    signal = np.zeros(len(t))
+
+    print(len(t))
+    print(len(signal))
+
+    if sinfreq == None:
+    
+        npeaks = 1.2 * ( duration * meanhr / 60 )
+        # add 20% more beats for some cummulative error
+        hr = pl.randn(npeaks)*stdhr+meanhr
+        peaks= pl.cumsum(60./hr)*samplingfreq
+        peaks = peaks.astype('int')
+        peaks = peaks[peaks < t[-1]*samplingfreq]
+
+    else:
+        hr = meanhr + sin( 2 * pi * t * sinfreq ) * float(stdhr)
+        index = int(60./hr[0]*samplingfreq)
+        peaks = []
+        while index < len(t):
+            peaks += [index]
+            index += int(60./hr[index]*samplingfreq)
+        
+    signal[peaks] = 1.0
+
+    return t, signal, peaks
 
 def load_with_cache(file, recache = False, sampling = 1, columns = None):
     """@brief This function loads a file from the current directory and saves
