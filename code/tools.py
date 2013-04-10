@@ -1,15 +1,13 @@
-from numpy import abs, linspace, sin, pi
-import matplotlib.pyplot as plt
 import pylab as pl
 import numpy as np
-from os import path 
-from base64 import b64decode
+from os import path
+from numpy import abs, linspace, sin, pi
 
 
-def plotfft(s, fmax, doplot = True):
-    """ This functions computes the fft of a signal, returning the frequency 
+def plotfft(s, fmax, doplot=True):
+    """ This functions computes the fft of a signal, returning the frequency
     and their magnitude values.
-    
+
     Parameters
     ----------
     s: array-like
@@ -17,7 +15,7 @@ def plotfft(s, fmax, doplot = True):
     fmax: int
       the sampling frequency.
     doplot: boolean
-      a variable to indicate whether the plot is done or not. 
+      a variable to indicate whether the plot is done or not.
 
     Returns
     -------
@@ -25,108 +23,101 @@ def plotfft(s, fmax, doplot = True):
       the frequency values (xx axis)
     fs: array-like
       the amplitude of the frequency values (yy axis)
-      
     """
-    
-    
+
     fs = abs(np.fft.fft(s))
-    f = linspace(0, fmax/2, len(s)/2)
+    f = linspace(0, fmax / 2, len(s) / 2)
     if doplot:
-        plt.plot(f[1:len(s)/2], fs[1:len(s)/2])
-    return (f[1:len(s)/2].copy(), fs[1:len(s)/2].copy())
+        pl.plot(f[1:len(s) / 2], fs[1:len(s) / 2])
+    return (f[1:len(s) / 2].copy(), fs[1:len(s) / 2].copy())
 
 
-def synthbeats2(duration, meanhr= 60, stdhr=1, samplingfreq = 250 ):
+def synthbeats2(duration, meanhr=60, stdhr=1, samplingfreq=250):
     #Minimaly based on the parameters from:
     #http://physionet.cps.unizar.es/physiotools/ecgsyn/Matlab/ecgsyn.m
     #Inputs: duration in seconds
     #Returns: signal, peaks
-    
-    ibi = 60/float(meanhr)*samplingfreq
 
-    
-    sibi= ibi-60/(float(meanhr)-stdhr)*samplingfreq
-    
-    peaks=np.arange(0,duration*samplingfreq, ibi )
-    
-    peaks[1:]=peaks[1:]+np.random.randn(len(peaks)-1)*sibi
-    
-    if peaks[-1] >= duration*samplingfreq:
-        peaks=peaks[:-1]
-    
+    ibi = 60 / float(meanhr) * samplingfreq
+
+    sibi = ibi - 60 / (float(meanhr) - stdhr) * samplingfreq
+
+    peaks = np.arange(0, duration * samplingfreq, ibi)
+
+    peaks[1:] = peaks[1:] + np.random.randn(len(peaks) - 1) * sibi
+
+    if peaks[-1] >= duration * samplingfreq:
+        peaks = peaks[:-1]
     peaks = peaks.astype('int')
-    
-    signal = np.zeros(duration*samplingfreq)
-
+    signal = np.zeros(duration * samplingfreq)
     signal[peaks] = 1.0
-    
-    return signal,peaks
+
+    return signal, peaks
 
 
-def synthbeats(duration, meanhr= 60, stdhr=1, samplingfreq = 250, sinfreq = None ):
+def synthbeats(duration, meanhr=60, stdhr=1, samplingfreq=250, sinfreq=None):
     #Minimaly based on the parameters from:
     #http://physionet.cps.unizar.es/physiotools/ecgsyn/Matlab/ecgsyn.m
     #If frequ exist it will be used to generate a sin instead of using rand
     #Inputs: duration in seconds
     #Returns: signal, peaks
 
-    t = np.arange(duration*samplingfreq)/float(samplingfreq)
+    t = np.arange(duration * samplingfreq) / float(samplingfreq)
     signal = np.zeros(len(t))
 
     print(len(t))
     print(len(signal))
 
     if sinfreq == None:
-    
-        npeaks = 1.2 * ( duration * meanhr / 60 )
+
+        npeaks = 1.2 * (duration * meanhr / 60)
         # add 20% more beats for some cummulative error
-        hr = pl.randn(npeaks)*stdhr+meanhr
-        peaks= pl.cumsum(60./hr)*samplingfreq
+        hr = pl.randn(npeaks) * stdhr + meanhr
+        peaks = pl.cumsum(60. / hr) * samplingfreq
         peaks = peaks.astype('int')
-        peaks = peaks[peaks < t[-1]*samplingfreq]
+        peaks = peaks[peaks < t[-1] * samplingfreq]
 
     else:
-        hr = meanhr + sin( 2 * pi * t * sinfreq ) * float(stdhr)
-        index = int(60./hr[0]*samplingfreq)
+        hr = meanhr + sin(2 * pi * t * sinfreq) * float(stdhr)
+        index = int(60. / hr[0] * samplingfreq)
         peaks = []
         while index < len(t):
             peaks += [index]
-            index += int(60./hr[index]*samplingfreq)
-        
+            index += int(60. / hr[index] * samplingfreq)
+
     signal[peaks] = 1.0
 
     return t, signal, peaks
 
-def load_with_cache(file, recache = False, sampling = 1, columns = None):
+
+def load_with_cache(file_, recache=False, sampling=1, columns=None):
     """@brief This function loads a file from the current directory and saves
     the cached file to later executions. It's also possible to make a recache
     or a subsampling of the signal and choose only a few columns of the signal,
     to accelerate the opening process.
-    
+
     @param file String: the name of the file to open.
-    @param recache Boolean: indication whether it's done recache or not 
+    @param recache Boolean: indication whether it's done recache or not
     (default = false).
     @param sampling Integer: the sampling step. if 1, the signal isn't
     sampled (default = 1).
     @param columns Array-Like: the columns to read from the file. if None,
     all columns are considered (default = None).
-      
+
     @return data Array-Like: the data from the file.
     TODO: Should save cache in a different directory
-    """   
-     
-    cfile = '%s.npy' % file
-    
+    TODO: Create test function and check size of generated files
+    """
+
+    cfile = '%s.npy' % file_
+
     if (not path.exists(cfile)) or recache:
         if columns == None:
             data = np.loadtxt(file)[::sampling, :]
         else:
             data = np.loadtxt(file)[::sampling, columns]
-        
         np.save(cfile, data)
-        
     else:
         print('Loading with cache...')
         data = np.load(cfile)
     return data
-
