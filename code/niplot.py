@@ -48,4 +48,3 @@ def niplot():
                                  on_key_press)
     cid = fig.canvas.mpl_connect('key_release_event',  # @UnusedVariable
                                  on_key_release)
-
