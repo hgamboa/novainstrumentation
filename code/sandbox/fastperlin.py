@@ -1,3 +1,4 @@
+#@PydevCodeAnalysisIgnore
 
 from numpy import array, abs, arange, dot, int8, int32, floor, fromfunction,\
                   hypot, ones, prod, random, indices, newaxis, poly1d

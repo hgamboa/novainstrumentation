@@ -4,9 +4,9 @@ novainstrumentation
 peak finding module
 """
 
-
 from numpy import array, clip, argsort, sort
 from pylab import find
+from scipy.signal import argrelmax
 
 
 def peaks(signal, tol=None):
@@ -27,7 +27,7 @@ def peaks(signal, tol=None):
     -------
     peaks: array-like
       the time sample where the peak occurs.
-      
+
     Example
     -------
     >>> peaks([1,2,4,3,2,5,7,7,4,9,2])
@@ -37,29 +37,28 @@ def peaks(signal, tol=None):
     >>> peaks([1,-4,-3,4,5],0)
     array([], dtype=int32)
     """
-    import peak_finding
 
     if (tol is None):
         tol = min(signal)
-    pks = peak_finding.argrelmax(clip(signal, tol, signal.max()))
+    pks = argrelmax(clip(signal, tol, signal.max()))
     return pks[0]
 
 
-def postPeak(V, Vpost):
+def post_peak(v, v_post):
     """ Detects the next peak """
-    return array([Vpost[find(Vpost > i)[0]] for i in V])
+    return array([v_post[find(v_post > i)[0]] for i in v])
 
 
-def priorPeak(V, Vprior):
+def prior_peak(v, v_prior):
     """ Detects the previous peak """
-    return array([Vprior[find(Vprior < i)[-1]] for i in V])
+    return array([v_prior[find(v_prior < i)[-1]] for i in v])
 
 
-def cleanNearPeaks(signal, peaks_, min_distance):
+def clean_near_peaks(signal, peaks_, min_distance):
     """ Given an array with all the peaks of the signal ('peaks') and a
     distance value ('min_distance') and the signal, by argument, this function
     erases all the unnecessary peaks and returns an array with only the maximum
-    peak for each period of the signal (the period is given by the 
+    peak for each period of the signal (the period is given by the
     min_distance).
 
     Parameters
@@ -76,7 +75,7 @@ def cleanNearPeaks(signal, peaks_, min_distance):
     fp: array-like
       the new peaks, after filtering just the maximum peak per period.
 
-    See also: cleanNearEvents()
+    See also: clean_near_events()
     """
 
     #order all peaks
@@ -92,7 +91,8 @@ def cleanNearPeaks(signal, peaks_, min_distance):
 
     return sort(array(fp))
 
-def cleanNearEvents(points,min_distance):
+
+def clean_near_events(points, min_distance):
     """ Given an array with some specific points of the signal and a distance
     value, this function erases all the surplus points and returns an array
     with only one point (the first point) per distance samples values
@@ -113,7 +113,7 @@ def cleanNearEvents(points,min_distance):
     >>> clean_near_events([1,3,5,50,65,68,83,88],10)
     array([ 1, 50, 65, 83])
 
-    See also: cleanNearPeaks()
+    See also: clean_near_peaks()
     """
 
     fp = []

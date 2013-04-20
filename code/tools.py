@@ -58,7 +58,7 @@ def synthbeats2(duration, meanhr=60, stdhr=1, samplingfreq=250):
 def synthbeats(duration, meanhr=60, stdhr=1, samplingfreq=250, sinfreq=None):
     #Minimaly based on the parameters from:
     #http://physionet.cps.unizar.es/physiotools/ecgsyn/Matlab/ecgsyn.m
-    #If frequ exist it will be used to generate a sin instead of using rand
+    #If freq exist it will be used to generate a sin instead of using rand
     #Inputs: duration in seconds
     #Returns: signal, peaks
 
@@ -90,7 +90,8 @@ def synthbeats(duration, meanhr=60, stdhr=1, samplingfreq=250, sinfreq=None):
     return t, signal, peaks
 
 
-def load_with_cache(file_, recache=False, sampling=1, columns=None):
+def load_with_cache(file_, recache=False, sampling=1,
+                    columns=None, temp_dir='.', data_type='int16'):
     """@brief This function loads a file from the current directory and saves
     the cached file to later executions. It's also possible to make a recache
     or a subsampling of the signal and choose only a few columns of the signal,
@@ -107,17 +108,18 @@ def load_with_cache(file_, recache=False, sampling=1, columns=None):
     @return data Array-Like: the data from the file.
     TODO: Should save cache in a different directory
     TODO: Create test function and check size of generated files
+    TODO: receive a file handle
     """
 
     cfile = '%s.npy' % file_
 
     if (not path.exists(cfile)) or recache:
         if columns == None:
-            data = np.loadtxt(file)[::sampling, :]
+            data = np.loadtxt(file_)[::sampling, :]
         else:
-            data = np.loadtxt(file)[::sampling, columns]
-        np.save(cfile, data)
+            data = np.loadtxt(file_)[::sampling, columns]
+
+        np.save(cfile, data.astype(data_type))
     else:
-        print('Loading with cache...')
         data = np.load(cfile)
     return data

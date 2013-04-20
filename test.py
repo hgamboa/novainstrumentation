@@ -1,7 +1,8 @@
+#@PydevCodeAnalysisIgnore
 from code import *
 
-from pylab import *
+from pylab import *  
 
 s = randn(100)
-plot( smooth(s))
+plot(smooth(s))
 show()

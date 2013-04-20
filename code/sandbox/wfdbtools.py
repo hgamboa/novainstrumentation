@@ -1,3 +1,5 @@
+#@PydevCodeAnalysisIgnore
+
 #!/usr/bin/env python
 
 ##########################################################
