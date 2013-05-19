@@ -1,6 +1,4 @@
 from pylab import axis, draw, close, gcf
-from novainstrumentation import *
-
 
 def on_key_press(event):
 
@@ -30,7 +28,7 @@ def on_key_press(event):
 
     if event.key == 'q':
         close()
-        #TODO: We should make the disconnect (mpl_disconect(cid)
+        #NOTE: We should make the disconnect (mpl_disconect(cid)
         #But since the figure is destroyed we may keep this format
         # if implemented the mpl_connect should use the return cid
 
