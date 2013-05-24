@@ -4,7 +4,7 @@ from os import path
 from numpy import abs, linspace, sin, pi
 
 
-def plotfft(s, fmax, doplot=True):
+def plotfft(s, fmax, doplot=False):
     """ This functions computes the fft of a signal, returning the frequency
     and their magnitude values.
 

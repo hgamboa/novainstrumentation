@@ -127,8 +127,8 @@ def clean_near_events(points, min_distance):
 from numpy import *
 
 def bigPeaks(s,th,min_peak_distance=5,peak_return_percentage=0.1):
-    p=peakDetectPos(s,th)
-    p=cleanNearPeaks(s,p,min_peak_distance)
+    p=peaks(s,th)
+    p=clean_near_peaks(s,p,min_peak_distance)
     
     ars=argsort(s[p])
     pp=p[ars]
