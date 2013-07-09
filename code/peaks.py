@@ -79,8 +79,10 @@ def clean_near_peaks(signal, peaks_, min_distance):
     """
 
     #order all peaks
-    ars = argsort(signal[peaks])
-    pp = peaks[ars]
+    
+    ars = argsort(signal[peaks_])
+    
+    pp = peaks(ars)
 
     fp = []
 
@@ -124,17 +126,23 @@ def clean_near_events(points, min_distance):
 
     return array(fp)
     
-from numpy import *
+from numpy import ceil
 
 def bigPeaks(s,th,min_peak_distance=5,peak_return_percentage=0.1):
     p=peaks(s,th)
-    p=clean_near_peaks(s,p,min_peak_distance)
+    pp=[]
+    if len(p)==0:
+        pp=[]
+    else:
+        p=clean_near_peaks(s,p,min_peak_distance)
     
-    ars=argsort(s[p])
-    pp=p[ars]
-    
-    num_peaks_to_return=ceil(len(p)*peak_return_percentage)
-    
-    pp=pp[-num_peaks_to_return:]
-
+        if len(p)!=0:
+            ars=argsort(s[p])
+            pp=p[ars]
+            
+            num_peaks_to_return=ceil(len(p)*peak_return_percentage)
+            
+            pp=pp[-num_peaks_to_return:]
+        else:
+            pp==[]
     return pp
