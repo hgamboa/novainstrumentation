@@ -8,3 +8,6 @@ from smooth import smooth
 from tictac import tic, tac
 from niplot import niplot
 from figtools import plotwithhist, pylabconfig, plotwithstats
+from waves import waves, plotheatmap, meanwave, align, sumvolve
+from peakdelta import peakdelta
+
