@@ -4,9 +4,8 @@ import pylab as pl
 
 duration = 30  # in seconds
 
-signal, beats = ni.synthbeats(duration, meanhr=60, stdhr=3, samplingfreq=250)
+time, signal, beats = ni.synthbeats(duration, meanhr=60, stdhr=3, samplingfreq=250)
 
-time = np.arange(len(signal)) / 250.
 
 # TODO INSPECT VECTORS WITH print
 # TODO ADD NOISE TO SIGNAL HERE WITH pl.randn
