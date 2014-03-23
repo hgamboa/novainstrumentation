@@ -1,8 +1,33 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from pylab import rc, close, figure, axes
+from pylab import rc, close, figure, axes, subplot, plot, axis, show, grid, savefig, text
+from numpy import arange
+import pandas
+import tkFileDialog
+import Tkinter
 
+def load_data_dialog(path):
+    #root = Tkinter.Tk()
+    #root.withdraw()
+    
+    # Make it almost invisible - no decorations, 0 size, top left corner.
+    #root.overrideredirect(True)
+    #root.geometry('0x0+0+0')
+    
+    # Show window again and lift it to top so it can get focus,
+    # otherwise dialogs will end up behind the terminal.
+    #root.deiconify()
+    #root.lift()
+    #root.focus_force()
+    
+    #filename = tkFileDialog.askopenfile(parent=root) # Or some other dialog
+    filename = tkFileDialog.askopenfile() # Or some other dialog
+    
+    # Get rid of the top-level instance once to make it actually invisible.
+    #root.destroy()
+    return pandas.read_csv(filename, sep=' ', header=None)
+    
 
 ##########
 #Initial configurations
@@ -29,6 +54,8 @@ def pylabconfig():
     close('all')
 
 
+
+    
 def plotwithhist(t, s, bins=50):
     from matplotlib.ticker import NullFormatter
 
@@ -54,7 +81,7 @@ def plotwithhist(t, s, bins=50):
     ###########
 
 def plotwithstats(t, s):
-
+    
     from matplotlib.ticker import NullFormatter
 
     nullfmt = NullFormatter()
@@ -80,3 +107,45 @@ def plotwithstats(t, s):
     ax2.set_xticks([])
 
     return ax1, ax2
+
+
+def multilineplot(signal, linesize=250, events=None, title = '', dir = '', step=1):
+    from pylab import rc
+    rc('axes', labelcolor='#a1a1a1', edgecolor='#a1a1a1', labelsize='xx-small')
+    rc('xtick',color='#a1a1a1', labelsize='xx-small')
+
+    
+    grid('off')
+    nplots=len(signal)//linesize + 1
+    ma_x = max(signal)
+    mi_x = min(signal)
+    f=figure(figsize=(20, 1.5*nplots), dpi=80)
+    for i in range(nplots):
+        ax=subplot(nplots,1,i+1)
+        
+        start = i*len(signal)/nplots
+        end = (i+1)*len(signal)/nplots
+        plot(arange(start,end,step),signal[start:end:step],'k')
+        axis((start,end,mi_x,ma_x))
+        ax.set_yticks([])
+        ax.set_xticks(ax.get_xticks()[1:-1])
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        
+        #ax.spines['bottom'].set_visible(False)
+        #ax.spines['left'].set_bounds(mi_x,ma_x)
+        ax.xaxis.set_ticks_position('bottom')
+        if events != None:
+            e = events[(events >= start) & (events < end)]
+
+            if len(e)>0:
+                vlines(e,mi_x,ma_x-(ma_x-mi_x)/4.*3., lw=2)
+
+        if title != None:
+            text(start,ma_x,title)
+        grid('off')
+    f.tight_layout()
+    savefig(dir+title+'.pdf')
+    close()
+ 

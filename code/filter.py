@@ -1,9 +1,9 @@
 from scipy import signal
 
-from filtfilt import filtfilt
+from scipy.signal import filtfilt
 
 
-def lowpass(s, f, order=2, fs=1000.0, use_filtfilt=True):
+def lowpass(s, f, order=2, fs=1000.0, use_filtfilt=False):
     '''
     @brief: for a given signal s rejects (attenuates) the frequencies higher
     then the cuttof frequency f and passes the frequencies lower than that
@@ -37,7 +37,7 @@ def lowpass(s, f, order=2, fs=1000.0, use_filtfilt=True):
     return signal.lfilter(b, a, s)
 
 
-def highpass(s, f, order=2, fs=1000.0, use_filtfilt=True):
+def highpass(s, f, order=2, fs=1000.0, use_filtfilt=False):
     '''
     @brief: for a given signal s rejects (attenuates) the frequencies lower
     then the cuttof frequency f and passes the frequencies higher than that
@@ -64,14 +64,14 @@ def highpass(s, f, order=2, fs=1000.0, use_filtfilt=True):
 
     '''
 
-    b, a = signal.butter(order, f / fs, btype='highpass')
+    b, a = signal.butter(order, f * 2 / fs, btype='highpass')
     if use_filtfilt:
         return filtfilt(b, a, s)
 
     return signal.lfilter(b, a, s)
 
 
-def bandstop(s, f1, f2, order=2, fs=1000.0, use_filtfilt=True):
+def bandstop(s, f1, f2, order=2, fs=1000.0, use_filtfilt=False):
     '''
     @brief: for a given signal s rejects (attenuates) the frequencies within a
     certain range (between f1 and f2) and passes the frequencies outside that
@@ -100,13 +100,13 @@ def bandstop(s, f1, f2, order=2, fs=1000.0, use_filtfilt=True):
     filtered signal
 
     '''
-    b, a = signal.butter(order, [f1 / fs, f2 / fs], btype='bandstop')
+    b, a = signal.butter(order, [f1 * 2 / fs, f2 * 2 / fs], btype='bandstop')
     if use_filtfilt:
         return filtfilt(b, a, s)
     return signal.lfilter(b, a, s)
 
 
-def bandpass(s, f1, f2, order=2, fs=1000.0, use_filtfilt=True):
+def bandpass(s, f1, f2, order=2, fs=1000.0, use_filtfilt=False):
     '''
     @brief: for a given signal s passes the frequencies within a certain range
     (between f1 and f2) and rejects (attenuates) the frequencies outside that
@@ -135,7 +135,7 @@ def bandpass(s, f1, f2, order=2, fs=1000.0, use_filtfilt=True):
     filtered signal
 
     '''
-    b, a = signal.butter(order, [f1 / fs, f2 / fs], btype='bandpass')
+    b, a = signal.butter(order, [f1 * 2 / fs, f2 * 2 / fs], btype='bandpass')
 
     if use_filtfilt:
         return filtfilt(b, a, s)

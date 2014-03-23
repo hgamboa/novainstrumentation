@@ -329,6 +329,3 @@ def infMinAlign(refw,w):
     
     return argmin(diff(refw))-argmin(diff(w))
 
-
-
-doctest.testmod()

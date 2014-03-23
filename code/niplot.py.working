@@ -1,15 +1,9 @@
 from pylab import axis, draw, close, gcf
 
-import time
-
-global old_t
-old_t=time.time()
-
 def on_key_press(event):
-    global old_t
-    new_t=time.time()
-    print old_t-new_t
-    old_t=new_t
+
+
+
     if event.key == '+':
         a = axis()
         w = a[1] - a[0]

@@ -1,7 +1,8 @@
 import pylab as pl
 import numpy as np
 from os import path
-from numpy import abs, linspace, sin, pi
+from numpy import abs, linspace, sin, pi, int16
+import pandas
 
 
 def plotfft(s, fmax, doplot=False):
@@ -111,6 +112,8 @@ def load_with_cache(file_, recache=False, sampling=1,
     TODO: receive a file handle
     """
 
+    
+    
     cfile = '%s.npy' % file_
 
     if (not path.exists(cfile)) or recache:
@@ -123,3 +126,13 @@ def load_with_cache(file_, recache=False, sampling=1,
     else:
         data = np.load(cfile)
     return data
+
+
+def load_data(filename):
+    """
+    :rtype : numpy matrix
+    """
+    data = pandas.read_csv(filename, header=None, delimiter='\t', skiprows=9)
+    return data.as_matrix()
+    
+
