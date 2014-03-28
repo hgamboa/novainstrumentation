@@ -27,7 +27,7 @@ def fundamental_frequency(s,FS):
     """
     
     s = s - mean(s)
-    f, fs = plotfft(s, FS, doplot=True)
+    f, fs = plotfft(s, FS, doplot=False)
     
     #fs = smooth(fs, 50.0)
   
