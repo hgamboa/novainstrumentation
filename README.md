@@ -10,6 +10,10 @@ If you want to replicate in your computer please download and install:
 
 pythonxy - http://code.google.com/p/pythonxy/
 
+or
+
+anaconda - https://store.continuum.io/cshop/anaconda/
+
 supporting code - download from https://github.com/hgamboa/novainstrumentation
 
 and copy to `c:\python2.7` directory and rename to guarantee that the directory is called `novainstrumentation`
