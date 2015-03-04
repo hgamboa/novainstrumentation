@@ -1,5 +1,5 @@
+from __future__ import division
 from scipy import signal
-
 from scipy.signal import filtfilt
 
 
@@ -29,7 +29,7 @@ def lowpass(s, f, order=2, fs=1000.0, use_filtfilt=False):
     filtered signal
 
     '''
-    b, a = signal.butter(order, f / fs)
+    b, a = signal.butter(order, f / (fs/2))
 
     if use_filtfilt:
         return filtfilt(b, a, s)
@@ -64,7 +64,7 @@ def highpass(s, f, order=2, fs=1000.0, use_filtfilt=False):
 
     '''
 
-    b, a = signal.butter(order, f * 2 / fs, btype='highpass')
+    b, a = signal.butter(order, f * 2 / (fs/2), btype='highpass')
     if use_filtfilt:
         return filtfilt(b, a, s)
 
