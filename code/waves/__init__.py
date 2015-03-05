@@ -5,3 +5,4 @@ from meanwave import meanwave
 from alignWaves import align
 from sumvolve import sumvolve
 from stdwave import stdwave
+from wavedistance import wavedistance
