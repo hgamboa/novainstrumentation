@@ -20,3 +20,4 @@ Make sure that the following code line works in `ipython`:
 
       import novainstrumentation
 
+If no error appears you have successfully installed scientific python. 
