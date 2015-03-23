@@ -6,7 +6,7 @@ Supporting code for Instrumentation 2 class at Universidade Nova de Lisboa.
 
 ## Installation
 ### 1. Download and install the required applications
-- [Anaconda](https://store.continuum.io/cshop/anaconda/);
+- [Anaconda](http://continuum.io/downloads) (choose python 2.7);
 - 
 - [Supporting code](https://github.com/hgamboa/novainstrumentation).
 
