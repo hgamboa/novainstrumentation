@@ -10,7 +10,7 @@ Supporting code for Instrumentation 2 class at Universidade Nova de Lisboa.
 - [Supporting code](https://github.com/hgamboa/novainstrumentation).
 
 ### 2. Complete the installation
-Copy the support code to `C:\Users\[username]\Anaconda\Lib\python2.7` directory and rename to guarantee that the directory is called `novainstrumentation`. In macos: `\Users\[username]\Anaconda\Lib\python2.7`. 
+Copy the support code to `C:\Users\[username]\Anaconda\Lib\` directory and rename to guarantee that the directory is called `novainstrumentation`. In macos: `\Users\[username]\Anaconda\Lib\`. 
   
 Note: installing on users with usernames with spaces or special characters will not work properly. We suggest the creation of a new user in the system.
 
