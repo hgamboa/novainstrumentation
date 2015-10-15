@@ -38,6 +38,11 @@ def smooth(input_signal, window_len=10, window='hanning'):
     @bug: if window_len is equal to the size of the signal the returning
     signal is smaller.
     """
+    
+
+
+    if type(input_signal) == list:
+        input_signal = np.asarray(input_signal)
 
     if input_signal.ndim != 1:
         raise ValueError("smooth only accepts 1 dimension arrays.")
@@ -51,6 +56,7 @@ def smooth(input_signal, window_len=10, window='hanning'):
     if not window in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
         raise ValueError("""Window is on of 'flat', 'hanning', 'hamming',
 'bartlett', 'blackman'""")
+
 
     sig = numpy.r_[2 * input_signal[0] - input_signal[window_len:1:-1],
                 input_signal,
