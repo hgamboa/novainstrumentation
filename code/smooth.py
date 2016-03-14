@@ -8,10 +8,10 @@ def smooth(input_signal, window_len=10, window='hanning'):
     This method is based on the convolution of a scaled window with the signal.
     The signal is prepared by introducing reflected copies of the signal
     (with the window size) in both ends so that transient parts are minimized
-    in the begining and end part of the output signal.
+    in the beginning and end part of the output signal.
 
-    @param: inumpyut_signal: array-like
-                the inumpyut signal
+    @param: input_signal: array-like
+                the input signal
             window_len: int
                 the dimension of the smoothing window. the default is 10.
             window: string.
@@ -24,7 +24,7 @@ def smooth(input_signal, window_len=10, window='hanning'):
 
     @example:
                 time = linspace(-2,2,0.1)
-                inumpyut_signal = sin(t)+randn(len(t))*0.1
+                input_signal = sin(t)+randn(len(t))*0.1
                 signal_filt = smooth(x)
 
 
@@ -48,13 +48,13 @@ def smooth(input_signal, window_len=10, window='hanning'):
     if window_len < 3:
         return input_signal
 
-    if not window in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
+    if window not in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
         raise ValueError("""Window is on of 'flat', 'hanning', 'hamming',
 'bartlett', 'blackman'""")
 
-    sig = numpy.r_[2 * input_signal[0] - input_signal[window_len:1:-1],
+    sig = numpy.r_[2 * input_signal[0] - input_signal[window_len:0:-1],
                 input_signal,
-                2 * input_signal[-1] - input_signal[-1:-window_len:-1]]
+                2 * input_signal[-1] - input_signal[-2:-window_len-2:-1]]
 
     if window == 'flat':  # moving average
         win = numpy.ones(window_len, 'd')
@@ -62,4 +62,5 @@ def smooth(input_signal, window_len=10, window='hanning'):
         win = eval('numpy.' + window + '(window_len)')
 
     sig_conv = numpy.convolve(win / win.sum(), sig, mode='same')
-    return sig_conv[window_len - 1:-window_len + 1]
+
+    return sig_conv[window_len: -window_len]
