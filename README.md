@@ -1,7 +1,7 @@
 nova.instrumentation
 ====================
 
-Supporting code for Instrumentation 2 class at Universidade Nova de Lisboa.
+Supporting code for Digital Instrumentation class at Universidade Nova de Lisboa.
 
 
 ## Installation
