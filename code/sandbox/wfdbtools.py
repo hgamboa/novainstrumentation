@@ -524,11 +524,11 @@ def get_annotation_code(code=None):
 def main():
     """Run tests when called directly"""
     import nose
-    print "-----------------"
-    print "Running the tests"
-    print "-----------------"
+    print("-----------------")
+    print("Running the tests")
+    print("-----------------")
     nose.main()
-        
+
 if __name__ == '__main__':
     main()
         

@@ -24,6 +24,6 @@ def tac(label=''):
     delta_t = time.time() - _tic
 
     if label != '':
-        print '%s - %3.4f s' % (label, delta_t)
+        print('%s - %3.4f s' % (label, delta_t))
     else:
-        print '%3.4f s' % delta_t
+        print('%3.4f s' % delta_t)

@@ -14,7 +14,6 @@ assert_true, assert_less
 
 base_dir = os.path.dirname(novainstrumentation.__file__)
 
-
 def test_emg_filter_params():
     fname = base_dir + '/code/data/emg.txt'
 

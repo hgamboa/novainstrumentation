@@ -3,22 +3,22 @@ import numpy as np
 from numpy import *
 import pylab as pl
 
-from wfdbtools import rdsamp, rdann, plot_data
+from novainstrumentation.code.sandbox.wfdbtools import rdsamp, rdann, plot_data
 #from pprint import pprint
     
     # Record is a format 212 record from physiobank.
     # Note that name of record does not include extension.
-record  = '100'
+record = '100'
 
     # Read in the data from 0 to 10 seconds
 data, info = rdsamp(record, 0, 10)
     
     # returned data is an array. The columns are time(samples),
     # time(seconds), signal1, signal2
-print data.shape
+print(data.shape)
 
     # info is a dictionary containing header information
-print info
+print(info)
 #    {'first_values': [995, 1011],
 #    'gains': [200, 200],
 #    'samp_count': 650000,

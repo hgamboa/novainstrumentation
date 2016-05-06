@@ -1,11 +1,10 @@
+import numpy as np
+import matplotlib.cm as cm
+import matplotlib.mlab as mlab
+import matplotlib.pylab as plt
+import os
 
 def plotheatmap2(s,valmin,valmax,points=100):
-    
-    import numpy as np
-    import matplotlib.cm as cm
-    import matplotlib.mlab as mlab
-    import matplotlib.pylab as plt
-
     x = range(1,len(s))
     y = np.linspace(valmin, valmax, points)
     X, Y = np.meshgrid(x, y)
@@ -17,5 +16,6 @@ def plotheatmap2(s,valmin,valmax,points=100):
 
     im = plt.imshow(Z, interpolation='bilinear', cmap=cm.gray,
                 origin='lower')
-#extent=[-3,3,-3,3])
+    #extent=[-3,3,-3,3])
     return Z
+

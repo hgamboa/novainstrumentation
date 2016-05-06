@@ -3,9 +3,10 @@
 
 from pylab import rc, close, figure, axes, subplot, plot, axis, show, grid, savefig, text
 from numpy import arange
+
+from matplotlib import pyplot as plot
 import pandas
-import tkFileDialog
-import Tkinter
+import tkinter.filedialog as tkFileDialog
 
 def load_data_dialog(path):
     #root = Tkinter.Tk()
@@ -140,7 +141,7 @@ def multilineplot(signal, linesize=250, events=None, title = '', dir = '', step=
             e = events[(events >= start) & (events < end)]
 
             if len(e)>0:
-                vlines(e,mi_x,ma_x-(ma_x-mi_x)/4.*3., lw=2)
+                plot.vlines(e,mi_x,ma_x-(ma_x-mi_x)/4.*3., lw=2)
 
         if title != None:
             text(start,ma_x,title)

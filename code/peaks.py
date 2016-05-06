@@ -51,8 +51,6 @@ def _boolrelextrema(data, comparator,
 
     Examples
     --------
-    >>> testdata = np.array([1,2,3,2,1])
-    >>> argrelextrema(testdata, np.greater, axis=0)
     array([False, False,  True, False, False], dtype=bool)
 
     """
@@ -64,7 +62,7 @@ def _boolrelextrema(data, comparator,
 
     results = np.ones(data.shape, dtype=bool)
     main = data.take(locs, axis=axis, mode=mode)
-    for shift in xrange(1, order + 1):
+    for shift in iter(range(1, order + 1)):
         plus = data.take(locs + shift, axis=axis, mode=mode)
         minus = data.take(locs - shift, axis=axis, mode=mode)
         results &= comparator(main, plus)

@@ -1,6 +1,6 @@
 import os
 from numpy import array, loadtxt
-from novainstrumentation import peaks, peakdelta
+from novainstrumentation.code import peaks, peakdelta
 from numpy.testing import TestCase, assert_array_equal, run_module_suite
 
 path = '..' + os.path.sep + 'data' + os.path.sep

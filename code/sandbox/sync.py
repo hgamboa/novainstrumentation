@@ -50,8 +50,8 @@ e2 = ((t2 % 2) > 1 ) * 1
 is1 = isync(s1,s2)
 is2 = isync(s2,s1)
 
-print len(is1)
-print sum(abs(s1-is1))/len(s1)
+print(len(is1))
+print(sum(abs(s1-is1))/len(s1))
 
 
 close("all")
