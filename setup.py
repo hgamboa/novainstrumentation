@@ -6,11 +6,12 @@ def readme():
 
 setup(
 	name = 'novainstrumentation',
-	version = '0.1',
+	version = '0.1.1',
 	description = 'Supporting code for Digital Instrumentation class at Universidade Nova de Lisboa.',
 	url = 'https://github.com/hgamboa/novainstrumentation',
-	author = 'hgamboa',
+	author = 'Hugo Gamboa',
+    author_email = 'hgamboa@fct.unl.pt',
 	packages=find_packages(),
 	package_data = {'novainstrumentation' : ["data/*"]},
-	install_requires = ['scipy','pandas','matplotlib','numpy', 'python3-tk'],
+	install_requires = ['scipy','pandas','matplotlib','numpy'],
     zip_safe=False)
