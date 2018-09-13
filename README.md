@@ -12,7 +12,7 @@ Supporting code for Digital Instrumentation class at Universidade Nova de Lisboa
 
 ### 2. Complete the installation using pip
 
-Use the command in a console (cmd in windows):
+Use the command in a console (anaconda console in windows):
 
      pip install novainstrumentation
 
