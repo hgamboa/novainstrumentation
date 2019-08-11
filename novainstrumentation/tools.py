@@ -73,7 +73,7 @@ def synthbeats(duration, meanhr=60, stdhr=1, samplingfreq=250, sinfreq=None):
 
         npeaks = 1.2 * (duration * meanhr / 60)
         # add 20% more beats for some cummulative error
-        hr = pl.randn(npeaks) * stdhr + meanhr
+        hr = pl.randn(int(npeaks)) * stdhr + meanhr
         peaks = pl.cumsum(60. / hr) * samplingfreq
         peaks = peaks.astype('int')
         peaks = peaks[peaks < t[-1] * samplingfreq]

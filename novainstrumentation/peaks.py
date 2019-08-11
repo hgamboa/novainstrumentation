@@ -6,7 +6,6 @@ peak finding module
 
 from numpy import array, clip, argsort, sort
 import numpy as np
-from pylab import find
 #from scipy.signal import argrelmax
 
 #### FROM SCIPY
@@ -231,12 +230,12 @@ def peaks(signal, tol=None):
 
 def post_peak(v, v_post):
     """ Detects the next peak """
-    return array([v_post[find(v_post > i)[0]] for i in v])
+    return array([v_post[np.where(v_post > i)[0][0]] for i in v])
 
 
 def prior_peak(v, v_prior):
     """ Detects the previous peak """
-    return array([v_prior[find(v_prior < i)[-1]] for i in v])
+    return array([v_prior[np.where(v_prior < i)[0][-1]] for i in v])
 
 
 def clean_near_peaks(signal, peaks_, min_distance):

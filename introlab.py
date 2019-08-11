@@ -12,7 +12,7 @@ time, signal, beats = ni.synthbeats(duration, meanhr=60, stdhr=3, samplingfreq=2
 
 
 # TODO IMPROVE BEAT DETECTOR
-ebeats = pl.find(signal == 1.0)
+ebeats = np.where(signal == 1.0)[0]
 
 
 # Plotting part
@@ -21,7 +21,6 @@ pl.title('HR Report')
 pl.plot(time, signal)
 
 pl.subplot(2, 1, 2)
-
 pl.bar(ebeats[1:] / 250., np.diff(ebeats), .8)
 
 # TODO ADD HISTOGRAM OF HR pl.hist

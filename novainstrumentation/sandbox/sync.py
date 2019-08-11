@@ -10,11 +10,11 @@ def sync(e1, s1, e2, s2, type='timelinear'):
     # return the new s2
 
 
-    ti1 = find(diff(e1) == 1)[0]
-    tf1 = find(diff(e1) == -1)[-1]
+    ti1 = where(diff(e1) == 1)[0][0]
+    tf1 = where(diff(e1) == -1)[0][-1]
 
-    ti2 = find(diff(e2) == 1)[0]
-    tf2 = find(diff(e2) == -1)[-1]
+    ti2 = where(diff(e2) == 1)[0][0]
+    tf2 = where(diff(e2) == -1)[0][-1]
 
 
 def isync(s1,s2):
