@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from numpy import mean, cumsum
-from matplotlib.mlab import find
 from novainstrumentation.peaks import bigPeaks
 from novainstrumentation.smooth import smooth
 from novainstrumentation.tools import plotfft
@@ -34,7 +33,7 @@ def fundamental_frequency(s,FS):
     fs = fs[1:len(fs) / 2]
     f = f[1:len(f) / 2]
     
-    cond = find(f > 0.5)[0]
+    cond = np.where(f > 0.5)[0]
     
     bp = bigPeaks(fs[cond:], 0)
     
