@@ -27,10 +27,10 @@ def plotfft(s, fmax, doplot=False):
     """
 
     fs = abs(np.fft.fft(s))
-    f = linspace(0, fmax / 2, len(s) / 2)
+    f = linspace(0, int(fmax / 2), int(len(s) / 2))
     if doplot:
-        pl.plot(f[1:len(s) / 2], fs[1:len(s) / 2])
-    return (f[1:len(s) / 2].copy(), fs[1:len(s) / 2].copy())
+        pl.plot(f[1:int(len(s) / 2)], fs[1:int(len(s) / 2)])
+    return (f[1:int(len(s) / 2)].copy(), fs[1:int(len(s) / 2)].copy())
 
 
 def synthbeats2(duration, meanhr=60, stdhr=1, samplingfreq=250):

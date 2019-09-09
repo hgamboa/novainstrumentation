@@ -6,7 +6,7 @@ def readme():
 
 setup(
 	name = 'novainstrumentation',
-	version = '0.1',
+	version = '0.2',
 	description = 'Supporting code for Digital Instrumentation class at Universidade Nova de Lisboa.',
 	url = 'https://github.com/hgamboa/novainstrumentation',
 	author = 'hgamboa',
