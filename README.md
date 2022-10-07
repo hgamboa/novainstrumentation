@@ -23,3 +23,5 @@ Make sure that the following code line works in `ipython`:
       import novainstrumentation
 
 If no error appears you have successfully installed the needed tools for a scientific python environment.
+
+Note: In some installations setuptools is missing and need to be installes with: pip install -U setuptools
